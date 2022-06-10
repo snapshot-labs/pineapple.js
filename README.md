@@ -29,6 +29,5 @@ const receipt = await pin(obj);
 console.log(receipt);
 ```
 
-## License
-
+### License
 [MIT](LICENSE).
