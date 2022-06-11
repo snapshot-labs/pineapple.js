@@ -19,3 +19,9 @@ export async function pin(json: any, url: string = PINEAPPLE_URL) {
   const res = await fetch(url, init);
   return (await res.json()).result;
 }
+
+export async function upload(body: any, url = `${PINEAPPLE_URL}/upload`) {
+  const init = { method: 'POST', body };
+  const res = await fetch(url, init);
+  return (await res.json()).result;
+}
