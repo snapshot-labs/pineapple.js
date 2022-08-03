@@ -15,13 +15,9 @@
     "cross-fetch": "^3.1.5"
   },
   "devDependencies": {
+    "@snapshot-labs/eslint-config": "^0.1.0-beta.2",
     "@types/jest": "^27.5.0",
-    "@typescript-eslint/eslint-plugin": "^2.33.0",
-    "@typescript-eslint/parser": "^2.33.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-prettier": "^3.1.3",
     "jest": "^27.5.1",
-    "prettier": "^2.6.2",
     "ts-jest": "^27.1.4",
     "typescript": "^4.6.3"
   },
