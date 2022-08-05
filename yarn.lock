@@ -529,10 +529,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@snapshot-labs/eslint-config@^0.1.0-beta.2":
-  version "0.1.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@snapshot-labs/eslint-config/-/eslint-config-0.1.0-beta.2.tgz#b01fa667b5ae2b26dcc797cbdc89a61740f38fc4"
-  integrity sha512-soOFuLaC9le25PH97xDKfTTJH6raecRNVLZw1uFpHqYlz22IcGddETJ71A5MbQ/GK9ZErmhNHvay3wTJUKxPKg==
+"@snapshot-labs/eslint-config@^0.1.0-beta.6":
+  version "0.1.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@snapshot-labs/eslint-config/-/eslint-config-0.1.0-beta.6.tgz#85f5221a97d5292914384a6345a12028718223c0"
+  integrity sha512-QtHwgZoeiFBKScIQumoK1ImaDc1FRMEuIY4xiVFZrbMz+jzQZyD3qc2cnMHmUCQy8KS4IboGFSfdaB/1M0duBg==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.33.0"
     "@typescript-eslint/parser" "^2.33.0"
@@ -2994,7 +2994,7 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@^4.6.3:
+typescript@^4.7.3:
   version "4.7.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.4.tgz#1a88596d1cf47d59507a1bcdfb5b9dfe4d488235"
   integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==

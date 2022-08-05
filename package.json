@@ -15,7 +15,7 @@
     "cross-fetch": "^3.1.5"
   },
   "devDependencies": {
-    "@snapshot-labs/eslint-config": "^0.1.0-beta.2",
+    "@snapshot-labs/eslint-config": "^0.1.0-beta.6",
     "@types/jest": "^27.5.0",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
