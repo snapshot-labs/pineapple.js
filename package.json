@@ -7,16 +7,22 @@
   "scripts": {
     "lint": "eslint src/ test/ --ext .ts",
     "lint:fix": "yarn lint --fix",
+    "typecheck": "tsc --noEmit",
     "build": "tsc",
     "prepare": "yarn build",
     "prepublishOnly": "yarn run lint",
     "test": "jest"
   },
+  "eslintConfig": {
+    "extends": "@snapshot-labs"
+  },
+  "prettier": "@snapshot-labs/prettier-config",
   "dependencies": {
     "cross-fetch": "^3.1.5"
   },
   "devDependencies": {
     "@snapshot-labs/eslint-config": "^0.1.0-beta.9",
+    "@snapshot-labs/prettier-config": "^0.1.0-beta.7",
     "@types/jest": "^29.5.3",
     "@types/node": "^20.4.8",
     "eslint": "^8.46.0",

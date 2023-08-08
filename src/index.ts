@@ -1,20 +1,20 @@
-import fetch from "cross-fetch";
+import fetch from 'cross-fetch';
 
-const PINEAPPLE_URL = "https://pineapple.fyi";
+const PINEAPPLE_URL = 'https://pineapple.fyi';
 
 export async function pin(json: any, url: string = PINEAPPLE_URL) {
   const init = {
-    method: "POST",
+    method: 'POST',
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      jsonrpc: "2.0",
-      method: "pin",
+      jsonrpc: '2.0',
+      method: 'pin',
       params: json,
-      id: null,
-    }),
+      id: null
+    })
   };
   const res = await fetch(url, init);
   const content = await res.json();
@@ -22,7 +22,7 @@ export async function pin(json: any, url: string = PINEAPPLE_URL) {
 }
 
 export async function upload(body: any, url = `${PINEAPPLE_URL}/upload`) {
-  const init = { method: "POST", body };
+  const init = { method: 'POST', body };
   const res = await fetch(url, init);
   const content = await res.json();
   return content.result || content.error;
