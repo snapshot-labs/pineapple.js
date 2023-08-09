@@ -20,7 +20,7 @@ describe('upload()', () => {
       formData.append('test', 'test');
       const receipt = await upload(formData);
       expect(receipt.data).toBe('no file');
-    }, 30e3);
+    }, 10e3);
   });
 
   describe('when the file is too big', () => {
@@ -29,7 +29,7 @@ describe('upload()', () => {
       formData.append('file', createReadStream(path.join(__dirname, './fixtures/too-heavy.jpg')));
       const receipt = await upload(formData);
       expect(receipt.data).toContain('large');
-    }, 30e3);
+    }, 10e3);
   });
 
   describe('when the file is not an image', () => {
@@ -38,6 +38,6 @@ describe('upload()', () => {
       formData.append('file', createReadStream(path.join(__dirname, './fixtures/file.json')));
       const receipt = await upload(formData);
       expect(receipt.data).toContain('Unsupported file type');
-    }, 30e3);
+    }, 10e3);
   });
 });
