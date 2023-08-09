@@ -15,29 +15,32 @@ describe('upload()', () => {
   });
 
   describe('when the file is missing', () => {
-    it('returns a 400 error', async () => {
+    it('returns an error', async () => {
       const formData = new FormData();
       formData.append('test', 'test');
       const receipt = await upload(formData);
-      expect(receipt.data).toBe('no file');
+      expect(receipt.error.code).toBe(400);
+      expect(receipt.error.message).toBe('No file submitted');
     }, 10e3);
   });
 
   describe('when the file is too big', () => {
-    it('returns a 400 error', async () => {
+    it('returns an error', async () => {
       const formData = new FormData();
       formData.append('file', createReadStream(path.join(__dirname, './fixtures/too-heavy.jpg')));
       const receipt = await upload(formData);
-      expect(receipt.data).toContain('large');
+      expect(receipt.error.code).toBe(400);
+      expect(receipt.error.message).toBe('File too large');
     }, 10e3);
   });
 
   describe('when the file is not an image', () => {
-    it('returns a 400 error', async () => {
+    it('returns an error', async () => {
       const formData = new FormData();
       formData.append('file', createReadStream(path.join(__dirname, './fixtures/file.json')));
       const receipt = await upload(formData);
-      expect(receipt.data).toContain('Unsupported file type');
+      expect(receipt.error.code).toBe(415);
+      expect(receipt.error.message).toBe('Unsupported file type');
     }, 10e3);
   });
 });

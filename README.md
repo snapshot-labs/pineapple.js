@@ -29,5 +29,27 @@ const receipt = await pin(obj);
 console.log(receipt);
 ```
 
+On success, it returns a receipt object:
+
+```js 
+{
+  provider: 'infura',
+  cid: 'xxxxx'
+}
+```
+
+On error, it will return an error object like this:
+
+```js
+{
+  error: {
+    code: 400,
+    message: 'File too big',
+    data: {}
+  }
+}
+```
+
+
 ### License
 [MIT](LICENSE).
