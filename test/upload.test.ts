@@ -1,7 +1,7 @@
 import path from 'path';
-import { upload } from '../src';
-import { createReadStream } from 'fs';
 import FormData from 'form-data';
+import { createReadStream } from 'fs';
+import { upload } from '../src';
 
 describe('upload()', () => {
   describe('when the file is valid', () => {
