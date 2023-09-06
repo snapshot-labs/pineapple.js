@@ -1,6 +1,9 @@
-import fetch from 'cross-fetch';
+import fetch from 'node-fetch';
+import http from 'node:http';
+import https from 'node:https';
 
 const PINEAPPLE_URL = 'https://pineapple.fyi';
+const agentOptions = { keepAlive: true };
 
 export async function pin(json: any, url: string = PINEAPPLE_URL) {
   const init = {
@@ -14,7 +17,11 @@ export async function pin(json: any, url: string = PINEAPPLE_URL) {
       method: 'pin',
       params: json,
       id: null
-    })
+    }),
+    agent:
+      new URL(url).protocol === 'http:'
+        ? new http.Agent(agentOptions)
+        : new https.Agent(agentOptions)
   };
   const res = await fetch(url, init);
   const content = await res.json();
