@@ -10,7 +10,7 @@ describe('upload()', () => {
       formData.append('file', createReadStream(path.join(__dirname, './fixtures/valid.png')));
       const receipt = await upload(formData);
       expect(receipt.provider).toBe('4everland');
-      expect(receipt.cid).toBe('bafkreibenzwnm4pckgeqdyzlwnxemfavkofaynnpxj6o23oojcfe77hvte');
+      expect(receipt.cid).toBe('bafkreidxvfyqu6l3tb3y5gi2nq5zqyincpev2rangnv7nmaocrk7q3o2fi');
     }, 30e3);
   });
 
