@@ -4,11 +4,5 @@ on: [push]
 
 jobs:
   test:
-    strategy:
-      matrix:
-        target: ['16', '18', '20']
-
     uses: snapshot-labs/actions/.github/workflows/test.yml@main
     secrets: inherit
-    with:
-      target: ${{ matrix.target }}
