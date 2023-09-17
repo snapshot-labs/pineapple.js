@@ -10,12 +10,12 @@ export async function pin(json: any, url = PINEAPPLE_URL) {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
+    body: {
       jsonrpc: '2.0',
       method: 'pin',
       params: json,
       id: null
-    }),
+    },
     timeout
   };
 
