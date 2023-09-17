@@ -30,6 +30,6 @@ async function sendRequest(url: string, init: any) {
   try {
     return (await fetch(url, init)).result;
   } catch (e: any) {
-    return { error: e.data?.error || e };
+    return { error: e.data?.error || { code: e.status, message: e.message } };
   }
 }
