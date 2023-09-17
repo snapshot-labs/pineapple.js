@@ -1,8 +1,8 @@
-import fetch from 'cross-fetch';
+import { ofetch as fetch } from 'ofetch';
 
 const PINEAPPLE_URL = 'https://pineapple.fyi';
 
-export async function pin(json: any, url: string = PINEAPPLE_URL) {
+export async function pin(json: any, url = PINEAPPLE_URL) {
   const init = {
     method: 'POST',
     headers: {
@@ -16,14 +16,20 @@ export async function pin(json: any, url: string = PINEAPPLE_URL) {
       id: null
     })
   };
-  const res = await fetch(url, init);
-  const content = await res.json();
-  return content.result || { error: content.error };
+
+  return sendRequest(url, init);
 }
 
 export async function upload(body: any, url = `${PINEAPPLE_URL}/upload`) {
   const init = { method: 'POST', body };
-  const res = await fetch(url, init);
-  const content = await res.json();
-  return content.result || { error: content.error };
+
+  return sendRequest(url, init);
+}
+
+async function sendRequest(url: string, init: any) {
+  try {
+    return (await fetch(url, init)).result;
+  } catch (e: any) {
+    return { error: e.data?.error || e };
+  }
 }
