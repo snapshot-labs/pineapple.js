@@ -11,7 +11,7 @@ describe('upload()', () => {
       const receipt = await upload(formData);
       expect(receipt.provider).toBe('4everland');
       expect(receipt.cid).toBe('bafkreidxvfyqu6l3tb3y5gi2nq5zqyincpev2rangnv7nmaocrk7q3o2fi');
-    }, 30e3);
+    });
   });
 
   describe('when the file is missing', () => {
@@ -21,7 +21,7 @@ describe('upload()', () => {
       const receipt = await upload(formData);
       expect(receipt.error.code).toBe(400);
       expect(receipt.error.message).toBe('No file submitted');
-    }, 10e3);
+    });
   });
 
   describe('when the file is too big', () => {
@@ -31,7 +31,7 @@ describe('upload()', () => {
       const receipt = await upload(formData);
       expect(receipt.error.code).toBe(400);
       expect(receipt.error.message).toBe('File too large');
-    }, 10e3);
+    });
   });
 
   describe('when the file is not an image', () => {
@@ -41,6 +41,16 @@ describe('upload()', () => {
       const receipt = await upload(formData);
       expect(receipt.error.code).toBe(415);
       expect(receipt.error.message).toBe('Unsupported file type');
-    }, 10e3);
+    });
+  });
+
+  describe('on network error', () => {
+    it('returns an error following the same format as server error', async () => {
+      const formData = new FormData();
+      formData.append('file', createReadStream(path.join(__dirname, './fixtures/file.json')));
+      const receipt = await upload(formData, 'https://pineapple.fyi/not-existing');
+      expect(receipt.error.code).toBe(404);
+      expect(receipt.error.message).toBe('Not Found');
+    });
   });
 });
