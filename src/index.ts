@@ -3,7 +3,7 @@ import { ofetch as fetch } from 'ofetch';
 const PINEAPPLE_URL = 'https://pineapple.fyi';
 const timeout = 10e3;
 
-export async function pin(json: any, url = PINEAPPLE_URL) {
+export function pin(json: any, url = PINEAPPLE_URL) {
   const options = {
     method: 'POST',
     headers: {
@@ -22,7 +22,7 @@ export async function pin(json: any, url = PINEAPPLE_URL) {
   return sendRequest(url, options);
 }
 
-export async function upload(body: any, url = `${PINEAPPLE_URL}/upload`) {
+export function upload(body: any, url = `${PINEAPPLE_URL}/upload`) {
   const options = { method: 'POST', body, timeout };
 
   return sendRequest(url, options);
