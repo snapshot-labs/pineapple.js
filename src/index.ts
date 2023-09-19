@@ -4,7 +4,7 @@ const PINEAPPLE_URL = 'https://pineapple.fyi';
 const timeout = 10e3;
 
 export async function pin(json: any, url = PINEAPPLE_URL) {
-  const init = {
+  const options = {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -19,18 +19,18 @@ export async function pin(json: any, url = PINEAPPLE_URL) {
     timeout
   };
 
-  return sendRequest(url, init);
+  return sendRequest(url, options);
 }
 
 export async function upload(body: any, url = `${PINEAPPLE_URL}/upload`) {
-  const init = { method: 'POST', body, timeout };
+  const options = { method: 'POST', body, timeout };
 
-  return sendRequest(url, init);
+  return sendRequest(url, options);
 }
 
-async function sendRequest(url: string, init: any) {
+async function sendRequest(url: string, options: any) {
   try {
-    return (await fetch(url, init)).result;
+    return (await fetch(url, options)).result;
   } catch (e: any) {
     return { error: e.data?.error || { code: e.status, message: e.statusText } };
   }
