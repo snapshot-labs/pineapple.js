@@ -18,9 +18,17 @@ describe('upload()', () => {
     it('returns an error', async () => {
       const formData = new FormData();
       formData.append('test', 'test');
-      const receipt = await upload(formData);
-      expect(receipt.error.code).toBe(400);
-      expect(receipt.error.message).toBe('No file submitted');
+
+      expect.assertions(1);
+
+      await expect(upload(formData)).rejects.toEqual(
+        expect.objectContaining({
+          error: expect.objectContaining({
+            code: 400,
+            message: 'No file submitted'
+          })
+        })
+      );
     });
   });
 
@@ -28,9 +36,17 @@ describe('upload()', () => {
     it('returns an error', async () => {
       const formData = new FormData();
       formData.append('file', createReadStream(path.join(__dirname, './fixtures/too-heavy.jpg')));
-      const receipt = await upload(formData);
-      expect(receipt.error.code).toBe(400);
-      expect(receipt.error.message).toBe('File too large');
+
+      expect.assertions(1);
+
+      await expect(upload(formData)).rejects.toEqual(
+        expect.objectContaining({
+          error: expect.objectContaining({
+            code: 400,
+            message: 'File too large'
+          })
+        })
+      );
     });
   });
 
@@ -38,9 +54,17 @@ describe('upload()', () => {
     it('returns an error', async () => {
       const formData = new FormData();
       formData.append('file', createReadStream(path.join(__dirname, './fixtures/file.json')));
-      const receipt = await upload(formData);
-      expect(receipt.error.code).toBe(415);
-      expect(receipt.error.message).toBe('Unsupported file type');
+
+      expect.assertions(1);
+
+      await expect(upload(formData)).rejects.toEqual(
+        expect.objectContaining({
+          error: expect.objectContaining({
+            code: 415,
+            message: 'Unsupported file type'
+          })
+        })
+      );
     });
   });
 
@@ -48,9 +72,17 @@ describe('upload()', () => {
     it('returns an error following the same format as server error', async () => {
       const formData = new FormData();
       formData.append('file', createReadStream(path.join(__dirname, './fixtures/file.json')));
-      const receipt = await upload(formData, 'https://pineapple.fyi/not-existing');
-      expect(receipt.error.code).toBe(404);
-      expect(receipt.error.message).toBe('Not Found');
+
+      expect.assertions(1);
+
+      await expect(upload(formData, 'https://pineapple.fyi/not-existing')).rejects.toEqual(
+        expect.objectContaining({
+          error: expect.objectContaining({
+            code: 404,
+            message: 'Not Found'
+          })
+        })
+      );
     });
   });
 });
