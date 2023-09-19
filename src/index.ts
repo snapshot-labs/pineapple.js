@@ -32,6 +32,6 @@ async function sendRequest(url: string, options: any) {
   try {
     return (await fetch(url, options)).result;
   } catch (e: any) {
-    return { error: e.data?.error || { code: e.status, message: e.statusText } };
+    return Promise.reject({ error: e.data?.error || { code: e.status, message: e.statusText } });
   }
 }
