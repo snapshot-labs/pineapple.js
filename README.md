@@ -50,6 +50,10 @@ On error, it will return an error object like this:
 }
 ```
 
+### Notes
+
+- On NodeJS, you can set the env variable `FETCH_KEEP_ALIVE` to `true` to enable keep-alive connections.
+- Functions have a timeout of 10s.
 
 ### License
 [MIT](LICENSE).
