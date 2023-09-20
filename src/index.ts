@@ -1,4 +1,5 @@
 import { ofetch as fetch } from 'ofetch';
+import { STATUS_CODE } from './utils';
 
 const PINEAPPLE_URL = 'https://pineapple.fyi';
 const timeout = 10e3;
@@ -32,6 +33,11 @@ async function sendRequest(url: string, options: any) {
   try {
     return (await fetch(url, options)).result;
   } catch (e: any) {
-    return Promise.reject({ error: e.data?.error || { code: e.status, message: e.statusText } });
+    return Promise.reject({
+      error: e.data?.error || {
+        code: e.status || 0,
+        message: e.statusText || STATUS_CODE[e.status] || 'Network error'
+      }
+    });
   }
 }
