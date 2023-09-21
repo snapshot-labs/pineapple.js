@@ -32,7 +32,7 @@ export function upload(body: any, url = `${PINEAPPLE_URL}/upload`) {
 
 async function sendRequest(url: string, options: any) {
   try {
-    return (await fetch(url, { ...options, ...defaultOptions })).result;
+    return (await fetch(url, { ...defaultOptions, ...options })).result;
   } catch (e: any) {
     return Promise.reject({
       error: e.data?.error || {
