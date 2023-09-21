@@ -3,6 +3,7 @@ import { STATUS_CODE } from './utils';
 
 const PINEAPPLE_URL = 'https://pineapple.fyi';
 const timeout = 10e3;
+const defaultOptions = { retry: 2, retryDelay: 500, retryStatusCodes: [504] };
 
 export function pin(json: any, url = PINEAPPLE_URL) {
   const options = {
@@ -31,7 +32,7 @@ export function upload(body: any, url = `${PINEAPPLE_URL}/upload`) {
 
 async function sendRequest(url: string, options: any) {
   try {
-    return (await fetch(url, options)).result;
+    return (await fetch(url, { ...defaultOptions, ...options })).result;
   } catch (e: any) {
     return Promise.reject({
       error: e.data?.error || {
