@@ -43,10 +43,7 @@ export function upload(body: any, url = `${PINEAPPLE_URL}/upload`) {
 }
 
 async function sendRequest(url: string, requestParams: RequestParams) {
-  if (
-    requestParams.body?.protocol &&
-    !AVAILABLE_PROTOCOLS.includes(requestParams.body.protocol)
-  ) {
+  if (requestParams.body?.protocol && !AVAILABLE_PROTOCOLS.includes(requestParams.body.protocol)) {
     return Promise.reject({
       error: {
         code: 400,
