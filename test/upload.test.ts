@@ -85,4 +85,23 @@ describe('upload()', () => {
       );
     });
   });
+
+  describe('when the protocol is not supported', () => {
+    it('returns an error', async () => {
+      const formData = new FormData();
+      formData.append('file', createReadStream(path.join(__dirname, './fixtures/valid.png')));
+      formData.append('protocol', 'swarm');
+
+      expect.assertions(1);
+
+      await expect(upload(formData)).rejects.toEqual(
+        expect.objectContaining({
+          error: expect.objectContaining({
+            code: 500,
+            message: 'Unsupported provider type: image for protocol: swarm'
+          })
+        })
+      );
+    });
+  });
 });
