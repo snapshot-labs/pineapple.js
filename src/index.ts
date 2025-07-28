@@ -1,12 +1,23 @@
 import { ofetch as fetch } from 'ofetch';
 import { STATUS_CODE } from './utils';
 
-const PINEAPPLE_URL = 'https://pineapple.fyi';
+type Options = { protocol?: 'ipfs' | 'swarm' };
+
+type RequestParams = {
+  method: string;
+  headers?: Record<string, string>;
+  body?: any;
+  timeout?: number;
+};
+
 const timeout = 10e3;
 const defaultOptions = { retry: 2, retryDelay: 500, retryStatusCodes: [504] };
+const PINEAPPLE_URL = 'https://pineapple.fyi';
+const DEFAULT_PROTOCOL = 'ipfs';
+const AVAILABLE_PROTOCOLS = ['ipfs', 'swarm'];
 
-export function pin(json: any, url = PINEAPPLE_URL) {
-  const options = {
+export function pin(json: any, url = PINEAPPLE_URL, options: Options = {}) {
+  const requestParams: RequestParams = {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -16,23 +27,33 @@ export function pin(json: any, url = PINEAPPLE_URL) {
       jsonrpc: '2.0',
       method: 'pin',
       params: json,
+      protocol: options.protocol || DEFAULT_PROTOCOL,
       id: null
     },
     timeout
   };
 
-  return sendRequest(url, options);
+  return sendRequest(url, requestParams);
 }
 
 export function upload(body: any, url = `${PINEAPPLE_URL}/upload`) {
-  const options = { method: 'POST', body, timeout };
+  const requestParams: RequestParams = { method: 'POST', body, timeout };
 
-  return sendRequest(url, options);
+  return sendRequest(url, requestParams);
 }
 
-async function sendRequest(url: string, options: any) {
+async function sendRequest(url: string, requestParams: RequestParams) {
+  if (requestParams.body?.protocol && !AVAILABLE_PROTOCOLS.includes(requestParams.body.protocol)) {
+    return Promise.reject({
+      error: {
+        code: 400,
+        message: `Invalid protocol: ${requestParams.body.protocol}.`
+      }
+    });
+  }
+
   try {
-    return (await fetch(url, { ...defaultOptions, ...options })).result;
+    return (await fetch(url, { ...defaultOptions, ...requestParams })).result;
   } catch (e: any) {
     return Promise.reject({
       error: e.data?.error || {

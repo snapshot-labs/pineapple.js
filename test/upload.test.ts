@@ -10,7 +10,7 @@ describe('upload()', () => {
       formData.append('file', createReadStream(path.join(__dirname, './fixtures/valid.png')));
       const receipt = await upload(formData);
       expect(receipt.provider).toBe('4everland');
-      expect(receipt.cid).toBe('bafkreidxvfyqu6l3tb3y5gi2nq5zqyincpev2rangnv7nmaocrk7q3o2fi');
+      expect(receipt.cid).toBe('bafkreif6ai5u636rsxcyk45bqmmt263h35hpqakxays4pdzkfdbsdw7kva');
     });
   });
 
@@ -80,6 +80,25 @@ describe('upload()', () => {
           error: expect.objectContaining({
             code: 404,
             message: 'Not Found'
+          })
+        })
+      );
+    });
+  });
+
+  describe('when the protocol is not supported', () => {
+    it('returns an error', async () => {
+      const formData = new FormData();
+      formData.append('file', createReadStream(path.join(__dirname, './fixtures/valid.png')));
+      formData.append('protocol', 'swarm');
+
+      expect.assertions(1);
+
+      await expect(upload(formData)).rejects.toEqual(
+        expect.objectContaining({
+          error: expect.objectContaining({
+            code: 500,
+            message: 'Unsupported provider type: image for protocol: swarm'
           })
         })
       );
