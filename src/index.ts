@@ -10,7 +10,7 @@ type RequestParams = {
   timeout?: number;
 };
 
-const timeout = 10e3;
+const timeout = 20e3;
 const defaultOptions = { retry: 2, retryDelay: 500, retryStatusCodes: [504] };
 const PINEAPPLE_URL = 'https://pineapple.fyi';
 const DEFAULT_PROTOCOL = 'ipfs';
