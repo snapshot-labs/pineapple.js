@@ -1,7 +1,7 @@
 import { ofetch as fetch } from 'ofetch';
 import { STATUS_CODE } from './utils';
 
-type Options = { protocol?: 'ipfs' | 'swarm' };
+type Options = { timeout?: number; protocol?: 'ipfs' | 'swarm' };
 
 type RequestParams = {
   method: string;
@@ -10,7 +10,7 @@ type RequestParams = {
   timeout?: number;
 };
 
-const timeout = 10e3;
+const TIMEOUT = 10e3;
 const defaultOptions = { retry: 2, retryDelay: 500, retryStatusCodes: [504] };
 const PINEAPPLE_URL = 'https://pineapple.fyi';
 const DEFAULT_PROTOCOL = 'ipfs';
@@ -30,14 +30,14 @@ export function pin(json: any, url = PINEAPPLE_URL, options: Options = {}) {
       protocol: options.protocol || DEFAULT_PROTOCOL,
       id: null
     },
-    timeout
+    timeout: options.timeout ?? TIMEOUT
   };
 
   return sendRequest(url, requestParams);
 }
 
 export function upload(body: any, url = `${PINEAPPLE_URL}/upload`) {
-  const requestParams: RequestParams = { method: 'POST', body, timeout };
+  const requestParams: RequestParams = { method: 'POST', body, timeout: TIMEOUT };
 
   return sendRequest(url, requestParams);
 }
